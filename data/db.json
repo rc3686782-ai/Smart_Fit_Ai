@@ -1,0 +1,86 @@
+{
+  "users": {
+    "442258fd-74db-4ab2-9833-c05f94c0c8eb": {
+      "id": "442258fd-74db-4ab2-9833-c05f94c0c8eb",
+      "name": "Ram Chandak",
+      "email": "rc3686782@gmail.com",
+      "passwordHash": "9a8d7c5ddf66f43310fcd5becb29d3a81fb08b73a2b9e2d9d6e2a9925c49ddc2",
+      "createdAt": "2026-10-23T13:58:41.441Z",
+      "profile": {
+        "dob": "2026-09-29",
+        "sex": "Male",
+        "height": "152",
+        "weight": "48",
+        "unit": "metric",
+        "goal": "Lose body fat",
+        "activity": "1–2 sessions / week",
+        "training": "Mixed training",
+        "diet": "Vegetarian"
+      }
+    },
+    "4aaee40e-f2cc-440b-b5f6-4ce8feae812a": {
+      "id": "4aaee40e-f2cc-440b-b5f6-4ce8feae812a",
+      "name": "karima",
+      "email": "24chandakr_1@rbunagpur.in",
+      "passwordHash": "59bbc520ff634e5f04728eb3143d711bad90f558707fa056fc91a070e5c5e1c3",
+      "createdAt": "2026-10-23T14:17:30.126Z",
+      "profile": {
+        "dob": "2026-10-01",
+        "sex": "Female",
+        "height": "124",
+        "weight": "45",
+        "unit": "metric",
+        "goal": "Build strength",
+        "activity": "1–2 sessions / week",
+        "training": "Running",
+        "diet": "No preference"
+      }
+    },
+    "5e9a983c-0441-4173-853d-d7406485c825": {
+      "id": "5e9a983c-0441-4173-853d-d7406485c825",
+      "name": "Arnav Domalwar",
+      "email": "student@college.edu",
+      "passwordHash": "c285fe693b76205b8a34a7e3015f218fa7e449b8fefa791648698bc695c9d1b6",
+      "createdAt": "2026-10-23T16:53:10.176Z",
+      "profile": {
+        "dob": "2026-10-24",
+        "sex": "Male",
+        "height": "163",
+        "weight": "91",
+        "unit": "metric",
+        "goal": "Lose body fat",
+        "activity": "Just starting",
+        "training": "Mixed training",
+        "diet": "Vegan"
+      }
+    }
+  },
+  "sessions": {},
+  "workouts": {
+    "77da4b19-050c-46b6-9f08-9ed6c59b22c2": {
+      "id": "77da4b19-050c-46b6-9f08-9ed6c59b22c2",
+      "userId": "4aaee40e-f2cc-440b-b5f6-4ce8feae812a",
+      "name": "morning",
+      "type": "Running",
+      "durationMin": 45,
+      "intensity": "Moderate",
+      "notes": "",
+      "date": "2026-10-23T14:24:14.179Z",
+      "completed": true
+    }
+  },
+  "meals": {
+    "e3c3d5d5-9bc1-4ca4-924f-69367f22cb83": {
+      "id": "e3c3d5d5-9bc1-4ca4-924f-69367f22cb83",
+      "userId": "4aaee40e-f2cc-440b-b5f6-4ce8feae812a",
+      "name": "egg",
+      "calories": 78,
+      "protein": 12,
+      "carbs": 78,
+      "fat": 0,
+      "mealType": "Breakfast",
+      "date": "2026-10-23",
+      "time": "19:48"
+    }
+  }
+}
