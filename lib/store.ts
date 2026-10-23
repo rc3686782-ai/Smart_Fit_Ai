@@ -57,28 +57,49 @@ type DB = {
   meals: Record<string, MealEntry>
 }
 
-// Path to the JSON file stored at project root /data/db.json
-const DATA_DIR  = path.join(process.cwd(), 'data')
-const DB_PATH   = path.join(DATA_DIR, 'db.json')
+// Path to the JSON file stored at project root /data/db.json (or /tmp/db.json on Vercel)
+const IS_VERCEL = !!process.env.VERCEL
+const SEED_PATH = path.join(process.cwd(), 'data', 'db.json')
+const DATA_DIR  = IS_VERCEL ? '/tmp' : path.join(process.cwd(), 'data')
+const DB_PATH   = IS_VERCEL ? path.join('/tmp', 'db.json') : path.join(DATA_DIR, 'db.json')
+
+let memoryDbCache: DB | null = null
 
 function readDB(): DB {
   try {
-    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true })
-    if (!fs.existsSync(DB_PATH)) return { users: {}, sessions: {}, workouts: {}, meals: {} }
+    if (IS_VERCEL && !fs.existsSync(DB_PATH) && fs.existsSync(SEED_PATH)) {
+      try {
+        fs.copyFileSync(SEED_PATH, DB_PATH)
+      } catch {}
+    }
+    if (!fs.existsSync(DATA_DIR)) {
+      try { fs.mkdirSync(DATA_DIR, { recursive: true }) } catch {}
+    }
+    if (!fs.existsSync(DB_PATH)) {
+      if (memoryDbCache) return memoryDbCache
+      return { users: {}, sessions: {}, workouts: {}, meals: {} }
+    }
     const raw = fs.readFileSync(DB_PATH, 'utf-8')
     const db = JSON.parse(raw) as DB
     // Migrate old DBs that don't have workouts/meals yet
     if (!db.workouts) db.workouts = {}
     if (!db.meals)    db.meals    = {}
+    memoryDbCache = db
     return db
   } catch {
+    if (memoryDbCache) return memoryDbCache
     return { users: {}, sessions: {}, workouts: {}, meals: {} }
   }
 }
 
 function writeDB(db: DB): void {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true })
-  fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf-8')
+  memoryDbCache = db
+  try {
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true })
+    fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf-8')
+  } catch (err) {
+    console.warn('[store] writeDB fallback to memory:', err)
+  }
 }
 
 /* ─── User helpers ───────────────────────────────────────────────────────── */
